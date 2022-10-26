@@ -18,6 +18,7 @@ import imgBgr from "../src/img/background.png";
 import Messages from "./pages/mypage/Messages";
 import GlobalStyle from "./GlobalStyle";
 import OAuth2RedirectHandler from "./pages/account/OAuth2RedirectHandler";
+import Dropdown from "./components/Dropdown";
 function App() {
   return (
     <>

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-
+import Dropdown from "./Dropdown";
 import profileImg from "../img/bell.png";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SockJs from "sockjs-client";
 import StompJs from "stompjs";
 import axios from "axios";
-import Dropdown from "./Dropdown";
 const Header = () => {
   const [msgs, setMsgs] = useState([]);
   const [msgIds, setMsgIds] = useState([]);
@@ -227,6 +226,7 @@ const Header = () => {
           {sessionStorage.getItem("isLogin") && (
             <div>
               <div className="place-header-bottom">
+                <Dropdown />
                 <div>{msgIds.length}</div>
 
                 <div>
@@ -277,7 +277,6 @@ const Header = () => {
           )}
           {/* //고정헤더영역 */}
         </div>
-        <Dropdown />
       </div>
     </HeaderSection>
   );
