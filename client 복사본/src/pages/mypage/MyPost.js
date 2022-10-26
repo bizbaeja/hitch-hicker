@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../../components/SideBar";
+
 import H1 from "../../components/ui/H1";
 import styled from "styled-components";
 const MyPost = () => {
@@ -56,7 +56,6 @@ const MyPost = () => {
   }, []);
   return (
     <div>
-      <SideBar />
       <H1>내가 쓴 게시글</H1>
       {myPost.map((el, idx) => (
         <StyledDiv key={idx}>
@@ -75,6 +74,4 @@ const MyPost = () => {
 };
 
 export default MyPost;
-const StyledDiv = styled.div`
-  
-`;
+const StyledDiv = styled.div``;

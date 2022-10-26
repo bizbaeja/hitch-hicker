@@ -1,4 +1,3 @@
-import SideBar from "../../components/SideBar";
 import styled from "styled-components";
 import H1 from "../../components/ui/H1";
 import axios from "axios";
@@ -60,7 +59,6 @@ const MyPage = () => {
 
   return (
     <>
-      <SideBar />
       <Section>
         <section>
           <H1>My Page</H1>
@@ -119,13 +117,7 @@ const MyPage = () => {
   );
 };
 export default MyPage;
-const PageContainer = styled.div`
-  
-`;
-const ContainerWrap = styled.div`
-  
-`;
+const PageContainer = styled.div``;
+const ContainerWrap = styled.div``;
 
-const Section = styled.div`
- 
-`;
+const Section = styled.div``;

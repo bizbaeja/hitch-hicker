@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../../components/SideBar";
+
 import H1 from "../../components/ui/H1";
 import styled from "styled-components";
 const MyMatching = () => {
@@ -64,7 +64,6 @@ const MyMatching = () => {
 
   return (
     <StyledDiv>
-      <SideBar />
       <H1>매칭 신청한 게시글</H1>
       <div className="wrapper">
         {myMatchingInfo.map((el, idx) => (
@@ -84,6 +83,4 @@ const MyMatching = () => {
 };
 
 export default MyMatching;
-const StyledDiv = styled.div`
-  
-`;
+const StyledDiv = styled.div``;

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import styled from "styled-components";
-
+import Messages from "../mypage/Messages";
 // toast
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -109,6 +109,7 @@ const NewPost = () => {
     <>
       <PageContainer>
         <Container>
+          <Messages />
           <div>
             <div>
               <input

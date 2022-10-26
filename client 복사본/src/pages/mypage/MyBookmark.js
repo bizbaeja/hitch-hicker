@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../../components/SideBar";
+
 import H1 from "../../components/ui/H1";
 import styled from "styled-components";
 const MyBookmark = () => {
@@ -57,7 +57,6 @@ const MyBookmark = () => {
 
   return (
     <div>
-      <SideBar />
       <H1>북마크</H1>
       {bookmarkData.map((el, idx) => (
         <StyledDiv key={idx}>
@@ -76,6 +75,4 @@ const MyBookmark = () => {
 };
 
 export default MyBookmark;
-const StyledDiv = styled.div`
-  
-`;
+const StyledDiv = styled.div``;
