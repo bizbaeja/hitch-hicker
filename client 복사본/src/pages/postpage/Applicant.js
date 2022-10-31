@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-const Participants = () => {
+const Applicant = () => {
   return (
     <Container>
       <SideBars>
         <section>
           <div className="container">
             <div className="title-wrapper">
-              <h4>참가자 명단</h4>
+              <h4>신청자 명단</h4>
             </div>
             <ul>
               <div className="content">
                 <div id="profile">
-                  <li>참가자1</li>
+                  <li>신청자1</li>
                 </div>
               </div>
             </ul>
@@ -24,7 +24,7 @@ const Participants = () => {
   );
 };
 
-export default Participants;
+export default Applicant;
 
 const SideBars = styled.div`
   #profile {
@@ -46,6 +46,7 @@ const SideBars = styled.div`
   flex-wrap: wrap;
   height: max-content;
   overflow: scroll;
+
   ::-webkit-scrollbar {
     margin: 0 auto;
     display: none;
@@ -64,14 +65,10 @@ const Container = styled.div`
   // 기본 CSS를 작성합니다.
   // 기본으로 작성되는 CSS는 1199px보다 큰 화면에서 작동 됩니다.
   // 세로모드 모바일 디바이스 (가로 해상도가 576px 보다 작은 화면에 적용)
-  div .title-wrapper {
+
+  div .content {
     display: inline-block;
-    height: 2rem;
-    width: fit-content;
-  }
-  .content {
-    display: inline-block;
-    background: #a2c9c6;
+    background-color: #e5dae8;
     width: 250px;
     height: fit-content;
     margin: 5px;
@@ -90,13 +87,5 @@ const Container = styled.div`
   .container {
     display: flex;
     flex: 1;
-    height: fit-content;
-  }
-
-  #profile {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    background-color: #777;
   }
 `;

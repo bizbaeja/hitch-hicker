@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { aboutdata } from "../../components/data/data";
 import Participants from "../postpage/Participants";
+import Applicant from "../postpage/Applicant";
 const MainPage = () => {
   const [isActive, setIsActive] = useState(false);
   const boxOpen = () => {
@@ -16,6 +17,7 @@ const MainPage = () => {
       <Layout>
         <Container>
           <Participants />
+          <Applicant />
           <body>
             <div class="container ">
               <nav>
