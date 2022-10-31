@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { aboutdata } from "../../components/data/data";
+import Participants from "../postpage/Participants";
 const MainPage = () => {
   const [isActive, setIsActive] = useState(false);
   const boxOpen = () => {
@@ -14,6 +15,7 @@ const MainPage = () => {
     <Section>
       <Layout>
         <Container>
+          <Participants />
           <body>
             <div class="container ">
               <nav>
