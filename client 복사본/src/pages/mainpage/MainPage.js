@@ -1,17 +1,121 @@
-import { arrayOf } from "prop-types";
-import { useState } from "react";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { aboutdata } from "../../components/data/data";
+
 import Participants from "../postpage/Participants";
 import Applicant from "../postpage/Applicant";
 const MainPage = () => {
+  const { id } = useParams();
+  const [detail, setDetail] = useState([]);
   const [isActive, setIsActive] = useState(false);
+  const [totalList, setTotalList] = useState([]);
+
   const boxOpen = () => {
     isActive === true ? setIsActive(false) : setIsActive(true);
   };
+  let navigate = useNavigate();
+  //전체 게시글 조회 - 리스트//
+  useEffect(() => {
+    axios(`${process.env.REACT_APP_URL}/api/posts/${id}`, {
+      headers: {
+        access_hh: sessionStorage.getItem("AccessToken"),
+      },
+    })
+      .then((res) => {
+        setDetail(res.data);
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          if (err.response.data.fieldErrors) {
+            alert(err.response.data.fieldErrors[0].reason);
+          } else if (
+            err.response.data.fieldErrors === null &&
+            err.response.data.violationErrors
+          ) {
+            alert(err.response.data.violationErrors[0].reason);
+          } else {
+            alert(
+              "우리도 무슨 오류인지 모르겠어요... 새로고침하고 다시 시도해주세요.... 미안합니다.....ㅠ"
+            );
+          }
+        } else if (err.response.status === 0)
+          alert(
+            "서버 오류로 인해 불러올 수 없습니다. 조금 뒤에 다시 시도해주세요"
+          );
+        else {
+          if (
+            err.response.data.korMessage ===
+            "만료된 토큰입니다. 다시 로그인 해주세요."
+          ) {
+            sessionStorage.clear();
+            navigate(`/`);
+            window.location.reload();
+          } else if (err.response.data.korMessage) {
+            if (
+              err.response.data.korMessage === "존재하지 않는 게시글입니다."
+            ) {
+              alert(err.response.data.korMessage);
+              navigate(`/main`);
+            }
+            alert(err.response.data.korMessage);
+          } else {
+            alert(
+              "우리도 무슨 오류인지 모르겠어요... 새로고침하고 다시 시도해주세요.... 미안합니다.....ㅠ"
+            );
+          }
+        }
+        window.location.reload();
+      });
+    axios(`${process.env.REACT_APP_URL}/api/posts/${id}/matching`, {
+      headers: {
+        access_hh: sessionStorage.getItem("AccessToken"),
+      },
+    })
+      .then((res) => {
+        setTotalList(res.data.data);
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          if (err.response.data.fieldErrors) {
+            alert(err.response.data.fieldErrors[0].reason);
+          } else if (
+            err.response.data.fieldErrors === null &&
+            err.response.data.violationErrors
+          ) {
+            alert(err.response.data.violationErrors[0].reason);
+          } else {
+            alert(
+              "우리도 무슨 오류인지 모르겠어요... 새로고침하고 다시 시도해주세요.... 미안합니다.....ㅠ"
+            );
+          }
+        } else if (err.response.status === 0)
+          alert(
+            "서버 오류로 인해 불러올 수 없습니다. 조금 뒤에 다시 시도해주세요"
+          );
+        else {
+          if (
+            err.response.data.korMessage ===
+            "만료된 토큰입니다. 다시 로그인 해주세요."
+          ) {
+            sessionStorage.clear();
+            navigate(`/`);
+            window.location.reload();
+          } else if (err.response.data.korMessage) {
+            alert(err.response.data.korMessage);
+          } else {
+            alert(
+              "우리도 무슨 오류인지 모르겠어요... 새로고침하고 다시 시도해주세요.... 미안합니다.....ㅠ"
+            );
+          }
+        }
+        window.location.reload();
+      });
+  }, [id, navigate]);
+  //전체 게시글 조회- 매칭 리스트 끝//
 
+  //
   return (
     <Section>
       <Layout>
@@ -28,16 +132,17 @@ const MainPage = () => {
                 </ul>
               </nav>
               <main>
-                <section>
-                  {aboutdata.datas.map((el) => (
-                    <div className="content">
+                <section className="matching-list">
+                  {totalList.map((el, idx) => (
+                    <div key={idx} className="content">
                       <div className="title-wrapper">
-                        <div id="profile"></div>
+                        <div id="profile">{el.displayName}</div>
                         <h4>
                           <Link to={`/detail/${el.title}`}>제목입니다</Link>
                         </h4>
                       </div>
                       <img className="picture" src={el.pic} alt="travelDesc" />
+
                       <div className="btns">
                         <div>
                           <div className="button">
@@ -61,28 +166,34 @@ const MainPage = () => {
                             <div>
                               <div>여행일정</div>
                               <div>
-                                <span>{el.date}</span>
+                                <span>
+                                  {detail.startDate} ~ {detail.endDate}
+                                </span>
                               </div>
                             </div>
                             <div>
                               <div>모집인원</div>
                               <div>
-                                <span>{el.person}</span>
+                                <span>
+                                  {" "}
+                                  {detail.participantsCount} /{" "}
+                                  {detail.totalCount}
+                                </span>
                               </div>
                             </div>
                             <div>
                               <div>매칭기간</div>
                               <div>
-                                <span>{el.matching}</span>
+                                <span>{detail.closeDate}</span>
                               </div>
                             </div>
                           </span>
                         ) : (
                           <span className="total-span">
                             <div>
-                              <div>여행일정</div>
+                              <div>여행지역</div>
                               <div>
-                                <span>{el.date}</span>
+                                <span>{detail.location}</span>
                               </div>
                             </div>
                             <div>
@@ -150,7 +261,6 @@ const Container = styled.div`
   section {
     display: flex;
     flex-wrap: wrap;
-
     .content {
       display: inline-block;
       background: #a2c9c6;
@@ -170,7 +280,6 @@ const Container = styled.div`
     display: flex;
     flex: 1;
   }
-
   .picture {
     display: inline-block;
     width: 250px;
@@ -183,7 +292,6 @@ const Container = styled.div`
     justify-content: space-around;
     margin: 5px 0 5px 0;
   }
-
   .total-span {
     display: inline-block;
     max-width: 80%;
@@ -192,7 +300,6 @@ const Container = styled.div`
     white-space: nowrap;
     overflow: hidden;
   }
-
   #profile {
     width: 50px;
     height: 50px;
@@ -229,15 +336,12 @@ const Section = styled.div`
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
-
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
     /* Support for Safari and Chrome. */
     text-rendering: optimizeLegibility;
-
     /* Support for Firefox. */
     -moz-osx-font-smoothing: grayscale;
-
     /* Support for IE. */
     font-feature-settings: "liga";
   }

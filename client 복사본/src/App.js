@@ -19,6 +19,7 @@ import Messages from "./pages/mypage/Messages";
 import GlobalStyle from "./GlobalStyle";
 import OAuth2RedirectHandler from "./pages/account/OAuth2RedirectHandler";
 import Dropdown from "./components/Dropdown";
+import MainPage from "./pages/mainpage/MainPage";
 function App() {
   return (
     <>
@@ -38,13 +39,14 @@ function App() {
             </>
           ) : (
             <>
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/mainpage" element={<MainPage />} />
+              <Route path="/:id" element={<PostDetail />} />
               <Route path="/main" element={<Main />} />
               <Route path="/" element={<Login />}></Route>
               <Route path="/new" element={<NewPost />} />
-              <Route path="/:id" element={<PostDetail />} />
               <Route path="/edit/:id" element={<EditPost />} />
               <Route path="/match/:matchid" element={<Matching />} />
-              <Route path="/mypage" element={<MyPage />} />
               <Route path="/userinfo" element={<UserInfo />} />
               <Route path="/mybookmark" element={<MyBookmark />} />
               <Route path="/mypost" element={<MyPost />} />
